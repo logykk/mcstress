@@ -9,7 +9,7 @@ package main
 import (
 	"flag"
 	"log"
-	//"strconv"
+	"strconv"
 	"time"
 
 	"github.com/Tnze/go-mc/bot"
@@ -29,8 +29,8 @@ func main() {
 	for i := 0; i < *number; i++ {
 		go func(i int) {
 			for {
-				//ind := newIndividual(i, "5C"+strconv.Itoa(i))
-				ind := newIndividual(i, "TheFifthColumn")
+				ind := newIndividual(i, "FifthColumn"+strconv.Itoa(i))
+				//ind := newIndividual(i, "TheFifthColumn")
 				ind.run(*address, *protocol)
 				time.Sleep(time.Second * 3)
 			}
