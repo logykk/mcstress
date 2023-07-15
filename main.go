@@ -1,15 +1,8 @@
-// This example is used to apply pressure test on the server.
-// Testing the performance of the login handling system of go-mc/server package.
-// It can be used to test other server implementations too.
-//
-// This program will create a lot of clients and let them log in to the server.
-// The number of clients can be set by the -number flag.
 package main
 
 import (
 	"flag"
 	"log"
-	"strconv"
 	"time"
 
 	"github.com/Tnze/go-mc/bot"
@@ -23,6 +16,7 @@ var (
 	uuid     = flag.String("uuid", "ed6a50a4-1104-41cf-b81a-7b98c6297b5f", "UUID of username (1.19.2 specific)")
 	protocol = flag.Int("protocol", 763, "The server's protocol version")
 	number   = flag.Int("number", 1023, "The number of clients")
+	pause    = flag.Int("pause", 5000, "Milliseconds each thread waits before trying to login again")
 )
 
 func main() {
@@ -33,7 +27,7 @@ func main() {
 			for {
 				ind := newIndividual(i, *username)
 				ind.run(*address, *protocol)
-				time.Sleep(time.Second * 3)
+				time.Sleep(time.Duration(*pause * 1_000_000))
 			}
 		}(i)
 	}
