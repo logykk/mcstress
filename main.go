@@ -16,18 +16,19 @@ var (
 	uuid     = flag.String("uuid", "", "UUID of username (1.19.2 specific)")
 	protocol = flag.Int("protocol", 763, "The server's protocol version")
 	number   = flag.Int("number", 1023, "The number of clients")
-	pause    = flag.Duration("pause", 5000, "Milliseconds each thread waits before trying to login again")
+	wait     = flag.Int("pause", 5000, "Milliseconds each thread waits before trying to login again")
 )
 
 func main() {
 	flag.Parse()
+	pause := time.Duration(*wait)
 
 	for i := 0; i < *number; i++ {
 		go func(i int) {
 			for {
 				ind := newIndividual(i)
 				ind.run(*address, *protocol)
-				time.Sleep(time.Millisecond * *pause)
+				time.Sleep(time.Millisecond * pause)
 			}
 		}(i)
 	}
