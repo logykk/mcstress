@@ -13,10 +13,10 @@ import (
 var (
 	address  = flag.String("address", "127.0.0.1", "The server address")
 	username = flag.String("username", "TheFifthColumn", "Username to flood console with")
-	uuid     = flag.String("uuid", "ed6a50a4-1104-41cf-b81a-7b98c6297b5f", "UUID of username (1.19.2 specific)")
+	uuid     = flag.String("uuid", "", "UUID of username (1.19.2 specific)")
 	protocol = flag.Int("protocol", 763, "The server's protocol version")
 	number   = flag.Int("number", 1023, "The number of clients")
-	pause    = flag.Int("pause", 5000, "Milliseconds each thread waits before trying to login again")
+	pause    = flag.Duration("pause", 5000, "Milliseconds each thread waits before trying to login again")
 )
 
 func main() {
@@ -25,9 +25,9 @@ func main() {
 	for i := 0; i < *number; i++ {
 		go func(i int) {
 			for {
-				ind := newIndividual(i, *username)
+				ind := newIndividual(i)
 				ind.run(*address, *protocol)
-				time.Sleep(time.Duration(*pause * 1_000_000))
+				time.Sleep(time.Millisecond * *pause)
 			}
 		}(i)
 	}
@@ -40,12 +40,14 @@ type individual struct {
 	player *basic.Player
 }
 
-func newIndividual(id int, name string) (i *individual) {
+func newIndividual(id int) (i *individual) {
 	i = new(individual)
 	i.id = id
 	i.client = bot.NewClient()
-	i.client.Auth.Name = name
-	i.client.Auth.UUID = *uuid
+	i.client.Auth = bot.Auth{
+		Name: *username,
+		UUID: *uuid,
+	}
 	i.player = basic.NewPlayer(i.client, basic.DefaultSettings, basic.EventsListener{
 		GameStart:  i.onGameStart,
 		Disconnect: onDisconnect,
@@ -55,7 +57,9 @@ func newIndividual(id int, name string) (i *individual) {
 
 func (i *individual) run(address string, protocolVersion int) {
 	// Login
-	err := i.client.JoinServer(address, protocolVersion)
+	err := i.client.JoinServerWithOptions(address, protocolVersion, bot.JoinOptions{
+		NoPublicKey: true,
+	})
 	if err != nil {
 		log.Printf("[%d]Login fail: %v", i.id, err)
 		return
