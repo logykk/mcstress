@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"log"
+	"strconv"
 	"time"
 
 	"github.com/Tnze/go-mc/bot"
@@ -12,11 +13,11 @@ import (
 
 var (
 	address  = flag.String("address", "127.0.0.1", "The server address")
-	username = flag.String("username", "TheFifthColumn", "Username to flood console with")
+	username = flag.String("username", "FifthColumn", "Username to flood console with")
 	uuid     = flag.String("uuid", "", "UUID of username (1.19.2 specific)")
 	protocol = flag.Int("protocol", 763, "The server's protocol version")
-	number   = flag.Int("number", 1023, "The number of clients")
-	wait     = flag.Int("pause", 5000, "Milliseconds each thread waits before trying to login again")
+	number   = flag.Int("number", 2048, "The number of clients")
+	wait     = flag.Int("pause", 0, "Milliseconds each thread waits before trying to login again")
 )
 
 func main() {
@@ -46,7 +47,7 @@ func newIndividual(id int) (i *individual) {
 	i.id = id
 	i.client = bot.NewClient()
 	i.client.Auth = bot.Auth{
-		Name: *username,
+		Name: *username+strconv.Itoa(i),
 		UUID: *uuid,
 	}
 	i.player = basic.NewPlayer(i.client, basic.DefaultSettings, basic.EventsListener{
