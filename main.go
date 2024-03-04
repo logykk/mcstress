@@ -47,7 +47,7 @@ func newIndividual(id int) (i *individual) {
 	i.id = id
 	i.client = bot.NewClient()
 	i.client.Auth = bot.Auth{
-		Name: *username+strconv.Itoa(i),
+		Name: *username+strconv.Itoa(id),
 		UUID: *uuid,
 	}
 	i.player = basic.NewPlayer(i.client, basic.DefaultSettings, basic.EventsListener{
