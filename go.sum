@@ -1,4 +1,4 @@
 github.com/google/uuid v1.3.0 h1:t6JiXgmwXMjEs8VusXIJk2BXHsn+wx8BZdTaoZ5fu7I=
 github.com/google/uuid v1.3.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
-github.com/logykk/go-mc v1.19.4-x4 h1:k53LlvhOcmy73DZzobfuGV0NiQtFtuzCS1HkPP9/MjQ=
-github.com/logykk/go-mc v1.19.4-x4/go.mod h1:c1znJQglgqa1Jjs3Dr29woN/msguiJrlNtWXhKedh2U=
+github.com/logykk/go-mc v1.19.4-x5 h1:BLIIjCd/jAuQtRX89N6F0cdr59e2mtSb03nXB0/LVUo=
+github.com/logykk/go-mc v1.19.4-x5/go.mod h1:c1znJQglgqa1Jjs3Dr29woN/msguiJrlNtWXhKedh2U=

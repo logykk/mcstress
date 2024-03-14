@@ -2,7 +2,7 @@ module mcstress
 
 go 1.20
 
-replace github.com/Tnze/go-mc => github.com/logykk/go-mc v1.19.4-x4
+replace github.com/Tnze/go-mc => github.com/logykk/go-mc v1.19.4-x5
 
 require github.com/Tnze/go-mc v0.0.0-00010101000000-000000000000
 
