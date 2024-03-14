@@ -15,12 +15,13 @@ Due to how many there are and how frequent they're joining, the Mojang session s
 
 ## Installation
 - Install go, instructions can be found [here](https://www.google.com/search?q=install+go)
-- Then run `go install github.com/logykk/mcstress@latest` in your terminal
+- Then clone this repo `git clone https://github.com/logykk/mcstress`
+- Build it `cd mcstress; go build -o mcstress .`
 
 ## Usage
 You need to provide at least the server's IP, port and protocol version
 
-`mcstress -address <IP>:<port> -protocol <protocol>`
+`./mcstress -address <IP>:<port> -protocol <protocol>`
 
 ### Options
 | Name      | Description                                     |
