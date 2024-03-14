@@ -47,7 +47,7 @@ func newIndividual(id int) (i *individual) {
 	i.id = id
 	i.client = bot.NewClient()
 	i.client.Auth = bot.Auth{
-		Name: *username+strconv.Itoa(id),
+		Name: *username + strconv.Itoa(id),
 		UUID: *uuid,
 	}
 	i.player = basic.NewPlayer(i.client, basic.DefaultSettings, basic.EventsListener{
@@ -71,9 +71,9 @@ func (i *individual) run(address string, protocolVersion int) {
 
 	// JoinGame
 	if err = i.client.HandleGame(); err == nil {
-		panic("HandleGame never return nil")
+		log.Printf("[%d]HandleGame should never return nil", i.id)
 	}
-	log.Printf("[%d] Handle game error: %v", i.id, err)
+	log.Printf("[%d]Handle game error: %v", i.id, err)
 }
 
 func (i *individual) onGameStart() error {
