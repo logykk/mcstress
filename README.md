@@ -1,17 +1,17 @@
 # MCstress
 Maximum intensity stress testing utility for Minecraft servers
 
-This tool works on all versions of Minecraft after 1.7.2 excluding CraftBukkit and derivatives (Spigot, Paper, etc.).
+This tool works on all versions of Minecraft after 1.7.2 excluding CraftBukkit and derivatives (Spigot, Paper, etc.)
+It is particilarly effective on modern versions of Forge & NeoForged.
 
-MCstress works by creating thousands of simultaneous bot users (default 2048) and repeatedly logging them into a target server.
+MCstress works by creating thousands of simultaneous bot users (default 2048) and repeatedly logging them into a specified server.
 
-With thousands of bots, this quickly overwhelms the network thread on the server.
-This causes currently online players to be disconnected, or in extreme situations, crashes the entire server.
+With thousands of bots, it quickly overwhelms the server, causing currently online players to be disconnected or in extreme situations, crashing the entire server.
 
 With less bots and/or by running MCstress in short bursts, you can cause intense lag spikes resulting in huge rubber-banding for server players.
 
-In some cases a server will attempt to validate the usernames of the bots joining.
-Due to how many there are and how frequent they're joining, the Mojang session server will rate limit the server's address, preventing players from reconnecting for some time after stress testing.
+In some cases the bots will get far enough through the login process that the server will try to verify their usernames with Minecraft's session server.
+Due to how many bots there are and how frequent they're joining, the session server will rate limit the Minecraft server, preventing players from rejoining for some time after stress testing.
 
 ## Installation
 - Install go, instructions can be found [here](https://www.google.com/search?q=install+go)
@@ -21,7 +21,8 @@ Due to how many there are and how frequent they're joining, the Mojang session s
 ## Usage
 You need to provide at least the server's IP, port and protocol version
 
-`./mcstress -address <IP>:<port> -protocol <protocol>`
+`./mcstress -address <IP>:<port> -protocol <protocol>`.
+On Windows, replace the `./` with `.\`
 
 ### Options
 | Name      | Description                                     |
